@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   selectedFlightType: string = 'roundtrip';
   multiCityFlights: any[] = [];
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -28,5 +29,9 @@ export class HomeComponent implements OnInit {
     if (index >= 0 && index < this.multiCityFlights.length) {
       this.multiCityFlights.splice(index, 1);
     }
+  }
+  showFlights() {
+    // Navigate to the flight list component
+    this.router.navigate(['/flight-list']);
   }
 }
