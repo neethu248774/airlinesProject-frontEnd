@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { FlightServiceService } from '../flight-service.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,10 +9,19 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   selectedFlightType: string = 'roundtrip';
+  criteria: any = {
+    iata_from: '',
+    iata_to: '',
+    date: '',
+    returningDate: '', // Only if it's a round trip
+    classType: 'Economy' // Default to 'Economy class'
+  };
+
   multiCityFlights: any[] = [];
-  constructor(private router: Router) { }
+  constructor(private router: Router,private flightService: FlightServiceService,private http: HttpClient) { }
 
   ngOnInit(): void {
+    
   }
   onFlightTypeChange(type: string) {
     this.selectedFlightType = type;
@@ -31,7 +41,26 @@ export class HomeComponent implements OnInit {
     }
   }
   showFlights() {
-    // Navigate to the flight list component
-    this.router.navigate(['/flight-list']);
+    console.log('Form submitted with criteria:', this.criteria);
+
+    // Use the FlightService to make the HTTP request
+    this.flightService.getFlights(this.criteria).subscribe(
+      (response: any) => {
+        console.log('Flight data received from backend:', response);
+
+        // Navigate to the flight list component with the received data
+        this.router.navigate(['/flight-list'], { state: { flights: response } });
+      },
+      (error) => {
+        console.error('Error fetching flight data:', error);
+      }
+    );
   }
+  // showFlights() {
+    
+  //     this.router.navigate(['/flight-list']);
+  //   } 
+    
+  
+  
 }

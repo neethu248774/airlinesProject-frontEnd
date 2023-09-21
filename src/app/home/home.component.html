@@ -195,15 +195,15 @@ opacity: 0.9;
                         <div class="form-group">
                             <div class="form-checkbox">
                                 <label for="roundtrip">
-                                    <input type="radio" id="roundtrip" name="flight-type" (click)="onFlightTypeChange('roundtrip')">
+                                    <input type="radio" id="roundtrip" name="flight-type" [(ngModel)]="selectedFlightType" value="roundtrip" (click)="onFlightTypeChange('roundtrip')">
                                     <span></span>Roundtrip
                                 </label>
                                 <label for="one-way">
-                                    <input type="radio" id="one-way" name="flight-type" (click)="onFlightTypeChange('one-way')">
+                                    <input type="radio" id="one-way" name="flight-type" [(ngModel)]="selectedFlightType" value="one-way" (click)="onFlightTypeChange('one-way')">
                                     <span></span>One way
                                 </label>
                                 <label for="multi-city">
-                                    <input type="radio" id="multi-city" name="flight-type" (click)="onFlightTypeChange('multi-city')">
+                                    <input type="radio" id="multi-city" name="flight-type" [(ngModel)]="selectedFlightType" value="multi-city" (click)="onFlightTypeChange('multi-city')">
                                     <span></span>Multi-City
                                 </label>
                             </div>
@@ -213,13 +213,13 @@ opacity: 0.9;
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Flying from</span>
-                                    <input class="form-control" type="text" placeholder="City or airport">
+                                    <input class="form-control" type="text" name="iataFrom" placeholder="City or airport" [(ngModel)]="criteria.iata_from">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Flying to</span>
-                                    <input class="form-control" type="text" placeholder="City or airport">
+                                    <input class="form-control" type="text" name="iataTo"  placeholder="City or airport" [(ngModel)]="criteria.iata_to">
                                 </div>
                             </div>
                         <!-- </div> -->
@@ -284,13 +284,13 @@ opacity: 0.9;
     <div class="col-md-2">
         <div class="form-group">
             <span class="form-label">Departing</span>
-            <input class="form-control" type="date" required>
+            <input class="form-control" name="date" type="date" [(ngModel)]="criteria.date"  >
         </div>
     </div>
     <div class="col-md-2" *ngIf="selectedFlightType === 'roundtrip'">
         <div class="form-group">
             <span class="form-label">Returning</span>
-            <input class="form-control" type="date" required>
+            <input class="form-control" type="date" name="date" id="returningDate" [(ngModel)]="criteria.returningDate" >
         </div>
     </div>
 </div>
@@ -332,20 +332,20 @@ opacity: 0.9;
         <div class="col-md-4">
             <div class="form-group">
                 <span class="form-label">Flying From</span>
-                <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.from">
+                <input class="form-control" type="text" placeholder="City or airport" >
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <span class="form-label">Flying To</span>
-                <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.to">
+                <input class="form-control" type="text" placeholder="City or airport" >
             </div>
         </div>
         
         <div class="col-md-2">
             <div class="form-group">
                 <span class="form-label">Departing</span>
-                <input class="form-control" type="date" [(ngModel)]="flight.date">
+                <input class="form-control" type="date" >
             </div>
         </div>
         <div class="col-md-2">
@@ -389,18 +389,19 @@ opacity: 0.9;
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <span class="form-label">Travel class</span>
+                                    <span class="form-label" name="travelClass" [(ngModel)]="criteria.travelClass" >Travel class</span>
                                     <select class="form-control">
-                                        <option>Economy class</option>
-                                        <option>Business class</option>
-                                        <option>First class</option>
+                                        <option>Economy</option>
+                                        <option>Business</option>
+                                        <option>First</option>
                                     </select>
                                     <span class="select-arrow"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-btn">
-                                    <button class="submit-btn" (click)="showFlights()">Show Flights</button>
+
+                                    <button type="submit" class="submit-btn" (click)="showFlights()">Show Flights</button>
                                 </div>
                             </div>
                             
