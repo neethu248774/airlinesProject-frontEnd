@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
   selectedFlightType: string = 'roundtrip';
+  
   criteria: any = {
     iata_from: '',
     iata_to: '',
@@ -41,21 +42,25 @@ export class HomeComponent implements OnInit {
     }
   }
   showFlights() {
-    console.log('Form submitted with criteria:', this.criteria);
-
-    // Use the FlightService to make the HTTP request
-    this.flightService.getFlights(this.criteria).subscribe(
-      (response: any) => {
-        console.log('Flight data received from backend:', response);
-
-        // Navigate to the flight list component with the received data
-        this.router.navigate(['/flight-list'], { state: { flights: response } });
-      },
-      (error) => {
-        console.error('Error fetching flight data:', error);
-      }
-    );
+    // console.log('Form submitted with criteria:', this.criteria);
+  
+    // // Use the FlightService to make the HTTP request
+    // this.flightService.getFlights(this.criteria).subscribe(
+    //   (response: any) => {
+    //     console.log('Flight data received from backend:', response);
+  
+    //     // Navigate to the flight list component with the received data and criteria
+    //     this.router.navigate(['/flight-list'], { state: { flights: response, criteria: this.criteria } });
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching flight data:', error);
+    //   }
+    // );
+    this.router.navigate(['/flight-list'], {
+      queryParams: this.criteria, // Pass criteria as query parameters
+    });
   }
+  
   // showFlights() {
     
   //     this.router.navigate(['/flight-list']);

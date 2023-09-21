@@ -9,12 +9,12 @@
         <th>Airline</th>
       </tr>
     </thead>
-    <tbody style="color: red;">
+    <tbody >
       <tr *ngFor="let flight of flights">
         <td>{{ flight.id }}</td>
         <td>{{ flight.iata_from }}</td>
         <td>{{ flight.iata_to }}</td>
-        <td>{{ flight.airlineName }}</td>
+        <td>{{ flight.airLineIata }}</td>
       </tr>
     </tbody>
   </table>
