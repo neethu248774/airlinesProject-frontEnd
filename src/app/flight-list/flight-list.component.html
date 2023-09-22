@@ -7,14 +7,20 @@
         <th>Origin</th>
         <th>Destination</th>
         <th>Airline</th>
+        <th>Airline Name</th>
+        <th>Logo</th>
       </tr>
     </thead>
     <tbody >
       <tr *ngFor="let flight of flights">
-        <td>{{ flight.id }}</td>
+        <td>{{ airlineDetails?.id }}</td>
         <td>{{ flight.iata_from }}</td>
         <td>{{ flight.iata_to }}</td>
         <td>{{ flight.airLineIata }}</td>
+        <td>{{ airlineDetails?.name }}</td>
+        <td>
+          <img *ngIf="airlineDetails?.logo" [src]="airlineDetails.logo" alt="{{ airlineDetails?.name }} Logo" width="50" height="50">
+        </td>
       </tr>
     </tbody>
   </table>

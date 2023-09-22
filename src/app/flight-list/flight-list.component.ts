@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AirlineService } from '../airline.service';
 import { FlightServiceService } from '../flight-service.service';
+
+
+
 
 @Component({
   selector: 'app-flight-list',
@@ -10,51 +14,21 @@ import { FlightServiceService } from '../flight-service.service';
 export class FlightListComponent implements OnInit {
   flights: any[] = [];
   criteria: any;
+  airlineDetails: any;
   
   constructor(
     private flightService: FlightServiceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private airlineservice:AirlineService
+  
   ) { }
 
-  // ngOnInit(): void {
-  //   const routeState = this.route.snapshot.data;
-  //   const criteria = routeState?.criteria;
-  //   console.log(criteria);
-
-  //   if (criteria) {
-  //     this.flightService.getFlights(criteria).subscribe(
-  //       (data: any[]) => {
-  //         this.flights = data; 
-  //         console.log(this.flights); 
-  //         this.router.navigate(['/flight-list'], { state: { criteria: criteria } });
-  //       },
-  //       (error) => {
-  //         console.error('Error fetching flight data:', error);
-  //       }
-  //     );
-  //   }
-  // }
+  
 
 
   ngOnInit(): void {
-    // Access the criteria from the route state
-  //   const routeState = this.route.snapshot?.data;
-  //   this.criteria = routeState?.criteria;
-  //   console.log("criteria")
-
-  //   if (this.criteria) {
-  //     this.flightService.getFlights(this.criteria).subscribe(
-  //       (data: any[]) => {
-  //         this.flights = data; 
-  //         console.log(this.flights); 
-  //       },
-  //       (error) => {
-  //         console.error('Error fetching flight data:', error);
-  //       }
-  //     );
-  //   }
-  // }
+  
   this.route.queryParams.subscribe((queryParams) => {
     this.criteria = queryParams;
     console.log(this.criteria)
@@ -62,15 +36,50 @@ export class FlightListComponent implements OnInit {
   });
   this.sendDataToBackend(this.criteria);
 }
-  sendDataToBackend(data:any){
-    this.flightService.getFlights(data).subscribe((response)=>{
-      console.log('API Response',response)
-      this.flights=response;
-      
-    })
-    
-  }
+sendDataToBackend(data: any) {
+  this.flightService.getFlights(data).subscribe((response) => {
+    console.log('API Response', response);
+    this.flights = response;
+    if (this.flights && this.flights.length > 0) {
+      this.flights.forEach((flight) => {
+        const airlineIATACode = flight.airLineIata; // Replace 'airlineIata' with the actual property name in your flight data
+        console.log(airlineIATACode)
+        this.fetchAirlineDetails(airlineIATACode);
+      });
+    }
+  });
 }
+
+  
+  
+    // fetchAirlineDetails() {
+    //   const airlineIATACode = this.flights[0].airlineIata; // Replace with the actual IATA code from your flight data
+    //   this.airlineservice.getAirlineDetailsByIATACode(airlineIATACode).subscribe(
+    //     (data) => {
+    //       this.airlineDetails = data;
+          
+    //     },
+    //     (error) => {
+    //       console.error('Error fetching airline details:', error);
+    //     }
+    //   );
+    // }
+  
+    fetchAirlineDetails(airlineIATACode: string) {
+      console.log("helloo")
+      this.airlineservice.getAirlineDetailsByIATACode(airlineIATACode).subscribe(
+        (data) => {
+          this.airlineDetails = data;
+          // Process airline details as needed
+          console.log(data);
+        },
+        (error) => {
+          console.error('Error fetching airline details:', error);
+        }
+      );
+    }
+}
+
 
 
 

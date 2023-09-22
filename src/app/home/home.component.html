@@ -182,6 +182,10 @@ opacity: 0.9;
     border: 1px solid #ccc; /* Add a border to make it visually distinct */
   }
 
+  .suggestions{
+      background-color: #f0f0f0;
+  }
+
 </style>
 
 <div id="booking" class="section" >
@@ -208,78 +212,38 @@ opacity: 0.9;
                                 </label>
                             </div>
                         </div>
-                        <!-- flight-booking.component.html -->
+                       
                         <div class="row"> 
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Flying from</span>
-                                    <input class="form-control" type="text" name="iataFrom" placeholder="City or airport" [(ngModel)]="criteria.iata_from">
+                                    <input  class="form-control" type="text" name="iataFrom"  placeholder="City or airport" [(ngModel)]="criteria.iata_from" (input)="searchAirportsFrom(criteria.iata_from)">
+                                    <div class="suggestions">
+                                        <ul>
+                                          <!-- Display airport suggestions here -->
+                                          <li *ngFor="let suggestion of airportSuggestionsFrom" (click)="selectAirport(suggestion,'iataFrom')">
+                                            {{ suggestion.name }} ({{ suggestion.code }})
+                                          </li>
+                                        </ul>
+                                      </div>
                                 </div>
+                                
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Flying to</span>
-                                    <input class="form-control" type="text" name="iataTo"  placeholder="City or airport" [(ngModel)]="criteria.iata_to">
+                                    <input class="form-control" type="text" name="iataTo"  placeholder="City or airport" [(ngModel)]="criteria.iata_to" (input)="searchAirportsTo(criteria.iata_to)">
+                                    <div class="suggestions">
+                                    <ul>
+                                        <!-- Display airport suggestions here -->
+                                        <li *ngFor="let suggestion of airportSuggestionsTo" (click)="selectAirport(suggestion,'iataTo')">
+                                          {{ suggestion.name }} ({{ suggestion.code }})
+                                        </li>
+                                      </ul>
+                                    </div>
                                 </div>
                             </div>
-                        <!-- </div> -->
-<!-- ... (previous HTML code) ... -->
-
-<!-- <div *ngIf="selectedFlightType === 'multi-city'">
-    <div class="row" *ngFor="let flight of multiCityFlights; let i = index">
-        <div class="col-md-6">
-            <div class="form-group">
-                <span class="form-label">From</span>
-                <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.from">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <span class="form-label">To</span>
-                <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.to">
-            </div>
-        </div>
-        <div class="col-md-12">
-            <button class="btn btn-primary" (click)="addFlight()">Add Flight</button>
-            <button class="btn btn-danger" (click)="removeFlight(i)">Remove</button>
-        </div>
-    </div>
-</div> -->
-
-<!-- ... (previous HTML code) ... -->
-
-<!-- ... (previous HTML code) ... -->
-
-<!-- <div *ngIf="selectedFlightType === 'multi-city'">
-  <div class="row" *ngFor="let flight of multiCityFlights; let i = index">
-    <div class="col-md-2">
-      <div class="form-group">
-        <span class="form-label">Date</span>
-        <input class="form-control" type="date" [(ngModel)]="flight.date">
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <span class="form-label">From</span>
-        <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.from">
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <span class="form-label">To</span>
-        <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.to">
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <button class="btn btn-danger" (click)="removeFlight(i)">Remove</button>
-      </div>
-    </div>
-    <div class="col-md-12" *ngIf="i === multiCityFlights.length - 1">
-      <button class="btn btn-primary" (click)="addFlight()">Add Flight</button>
-    </div>
-  </div>
-</div> -->
+                        
 
     <div class="col-md-2">
         <div class="form-group">
@@ -295,37 +259,7 @@ opacity: 0.9;
     </div>
 </div>
 
-<!-- <div *ngIf="selectedFlightType === 'multi-city'">
-    <div class="row" *ngFor="let flight of multiCityFlights; let i = index">
-      <div class="col-md-2">
-        <div class="form-group">
-          <span class="form-label">Date</span>
-          <input class="form-control" type="date" [(ngModel)]="flight.date"><br>
-        </div>
-      </div>
-      
-      <div class="col-md-5">
-        <div class="form-group">
-          <span class="form-label">From</span>
-          <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.from">
-        </div>
-      </div>
-      <div class="col-md-5">
-        <div class="form-group">
-          <span class="form-label">To</span>
-          <input class="form-control" type="text" placeholder="City or airport" [(ngModel)]="flight.to">
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <button class="btn btn-danger" (click)="removeFlight(i)">Remove</button>
-        </div>
-      </div>
-      <div class="col-md-12" *ngIf="i === multiCityFlights.length - 1">
-        <button class="btn btn-primary" (click)="addFlight()">Add Flight</button>
-      </div>
-    </div>
-  </div> -->
+
   <div *ngIf="selectedFlightType === 'multi-city'">
     <div class="row" *ngFor="let flight of multiCityFlights; let i = index">
         
@@ -361,31 +295,6 @@ opacity: 0.9;
     </div>
 </div>
 
-
-
-<!-- ... (rest of the HTML code) ... -->
-
-
-<!-- ... (rest of the HTML code) ... -->
-
-
-
-                        <!-- <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <span class="form-label">Departing</span>
-                                    <input class="form-control" type="date" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <span class="form-label">Returning</span>
-                                   
-                                    <input class="form-control" type="date" required [disabled]="selectedFlightType !== 'roundtrip'">
-                                    
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
