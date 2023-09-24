@@ -12,8 +12,7 @@ import { AutocompleteService } from '../autocomplete.service';
 export class HomeComponent implements OnInit {
   selectedFlightType: string = 'roundtrip';
 
-  // flyingFromSuggestions: any[] = [];
-  // flyingToSuggestions: any[] = [];
+  
   airportSuggestionsFrom: any[] = [];
   airportSuggestionsTo: any[] = [];
 
@@ -60,7 +59,7 @@ export class HomeComponent implements OnInit {
   }
 
   searchAirportsFrom(searchString: string) {
-    if (searchString.length >= 3) {
+    if (searchString.length >= 1) {
       console.log("this is my keyword :"+searchString)
       const requestData = { search_string: searchString };
 
@@ -75,7 +74,7 @@ export class HomeComponent implements OnInit {
     }
   }
   searchAirportsTo(searchString: string) {
-    if (searchString.length >= 3) {
+    if (searchString.length >= 1) {
       console.log("this is my keyword :"+searchString)
       const requestData = { search_string: searchString };
 
@@ -90,59 +89,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // searchAirports(keyword: string, inputField: string) {
-  //   if (keyword.length >= 3) {
-
-  //     console.log(`Autocompleting airports for ${inputField}: ${keyword}`);
-  //     this.autocompleteService.autocompleteAirports(keyword).subscribe(
-  //       (response) => {
-  //         console.log(`Received autocomplete response for ${inputField}:`, response);
-  //         if (inputField === 'flyingFrom') {
-
-  //           this.flyingFromSuggestions = response.matching_airports;
-
-  //         } else if (inputField === 'flyingTo') {
-
-  //           this.flyingToSuggestions = response.matching_airports;
-
-  //         }
-
-  //       },
-
-  //       (error) => {
-
-  //         console.error('Autocomplete error:', error);
-
-  //       }
-
-  //     );
-
-  //   } else {
-
-  //     // Clear suggestions if input is less than 3 characters
-
-  //     if (inputField === 'flyingFrom') {
-
-  //       this.flyingFromSuggestions = [];
-
-  //     } else if (inputField === 'flyingTo') {
-
-  //       this.flyingToSuggestions = [];
-
-  //     }
-
-  //   }
-
-  // }
+  
 
   selectAirport(airport: any, inputField: string) {
     console.log(`Selected airport for ${inputField}:`, airport);
     if (inputField === 'iataFrom') {
       this.criteria.iata_from = airport.code;
-      // this.fromCode=airport.code;
+      this.airportSuggestionsFrom = [];
     } else if (inputField === 'iataTo') {
       this.criteria.iata_to = airport.code;
-      // this.toCode=airport.code;
+      this.airportSuggestionsTo = [];
     }
   }
+  
 }

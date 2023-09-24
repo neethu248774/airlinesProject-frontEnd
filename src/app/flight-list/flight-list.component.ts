@@ -15,7 +15,8 @@ export class FlightListComponent implements OnInit {
   flights: any[] = [];
   criteria: any;
   airlineDetails: any;
-  
+  airportDetailsFrom:any;
+  airportDetailsTo:any;
   constructor(
     private flightService: FlightServiceService,
     private route: ActivatedRoute,
@@ -42,28 +43,19 @@ sendDataToBackend(data: any) {
     this.flights = response;
     if (this.flights && this.flights.length > 0) {
       this.flights.forEach((flight) => {
-        const airlineIATACode = flight.airLineIata; // Replace 'airlineIata' with the actual property name in your flight data
+        const airlineIATACode = flight.airLineIata;
+        const iataFrom=flight.iata_from;
+        const iataTo=flight.iata_to;
+         // Replace 'airlineIata' with the actual property name in your flight data
         console.log(airlineIATACode)
         this.fetchAirlineDetails(airlineIATACode);
+        this.fetchAirportNamesFrom(iataFrom);
+        this.fetchAirportNamesTo(iataTo);
       });
     }
   });
 }
 
-  
-  
-    // fetchAirlineDetails() {
-    //   const airlineIATACode = this.flights[0].airlineIata; // Replace with the actual IATA code from your flight data
-    //   this.airlineservice.getAirlineDetailsByIATACode(airlineIATACode).subscribe(
-    //     (data) => {
-    //       this.airlineDetails = data;
-          
-    //     },
-    //     (error) => {
-    //       console.error('Error fetching airline details:', error);
-    //     }
-    //   );
-    // }
   
     fetchAirlineDetails(airlineIATACode: string) {
       console.log("helloo")
@@ -78,6 +70,33 @@ sendDataToBackend(data: any) {
         }
       );
     }
+    fetchAirportNamesFrom(iataFrom: string) {
+      this.airlineservice.getAirportByCode(iataFrom).subscribe(
+        (data) => {
+         this. airportDetailsFrom=data;
+          // Assuming 'data' contains airport details including the name
+           // Replace with the actual property name for the airport name
+          console.log('Airport Name (From):', data);
+        },
+        (error) => {
+          console.error('Error fetching airport details (From):', error);
+        }
+      );
+    }
+    
+    fetchAirportNamesTo(iataTo: string) {
+      this.airlineservice.getAirportByCode(iataTo).subscribe(
+        (data) => {
+          // Assuming 'data' contains airport details including the name
+          this. airportDetailsTo=data; // Replace with the actual property name for the airport name
+          console.log('Airport Name (To):', data);
+        },
+        (error) => {
+          console.error('Error fetching airport details (To):', error);
+        }
+      );
+    }
+    
 }
 
 

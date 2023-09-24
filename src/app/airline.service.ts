@@ -12,7 +12,10 @@ export class AirlineService {
     const url = `${this.apiUrl}/getAirline/${code}`; // Example URL, update accordingly
     return this.http.get<any>(url);
   }
-  
+  getAirportByCode(code:string):Observable<any[]>{
+    const url = `${this.apiUrl}/getAirport/${code}`; // Example URL, update accordingly
+    return this.http.get<any>(url);
+  }
   
   
 }

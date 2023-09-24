@@ -17,6 +17,7 @@ transform: translateY(-50%);
 #booking {
 font-family: 'PT Sans', sans-serif;
 background-image: url('../img/background.jpg');
+
 background-size: cover;
 background-position: center;
 }
@@ -159,7 +160,7 @@ margin-top: 27px;
 
 .booking-form .submit-btn {
 color: #fff;
-background-color: #f23e3e;
+background-color: #b50909;
 font-weight: 400;
 height: 50px;
 font-size: 14px;
@@ -185,8 +186,32 @@ opacity: 0.9;
   .suggestions{
       background-color: #f0f0f0;
   }
+  /* Add this CSS to your existing styles */
+.suggestions-container {
+  position: relative;
+  max-height: 150px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+  /* border: 1px solid #ccc;  */
+}
+
+.suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* .suggestions li:hover {
+  background-color: #f0f0f0; 
+} */
+
 
 </style>
+
 
 <div id="booking" class="section" >
     <div class="section-center">
@@ -195,7 +220,7 @@ opacity: 0.9;
                 <div class="booking-form">
                     <form>
                        
-                       
+                       <div class="row">
                         <div class="form-group">
                             <div class="form-checkbox">
                                 <label for="roundtrip">
@@ -206,26 +231,32 @@ opacity: 0.9;
                                     <input type="radio" id="one-way" name="flight-type" [(ngModel)]="selectedFlightType" value="one-way" (click)="onFlightTypeChange('one-way')">
                                     <span></span>One way
                                 </label>
-                                <label for="multi-city">
+                                <!-- <label for="multi-city">
                                     <input type="radio" id="multi-city" name="flight-type" [(ngModel)]="selectedFlightType" value="multi-city" (click)="onFlightTypeChange('multi-city')">
                                     <span></span>Multi-City
-                                </label>
+                                </label> -->
                             </div>
                         </div>
+                    </div>
                        
+
                         <div class="row"> 
+                            
+            
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Flying from</span>
                                     <input  class="form-control" type="text" name="iataFrom"  placeholder="City or airport" [(ngModel)]="criteria.iata_from" (input)="searchAirportsFrom(criteria.iata_from)">
+                                    <div class="suggestions-container">
                                     <div class="suggestions">
                                         <ul>
-                                          <!-- Display airport suggestions here -->
+                                          
                                           <li *ngFor="let suggestion of airportSuggestionsFrom" (click)="selectAirport(suggestion,'iataFrom')">
                                             {{ suggestion.name }} ({{ suggestion.code }})
                                           </li>
                                         </ul>
                                       </div>
+                                    </div>
                                 </div>
                                 
                             </div>
@@ -233,15 +264,17 @@ opacity: 0.9;
                                 <div class="form-group">
                                     <span class="form-label">Flying to</span>
                                     <input class="form-control" type="text" name="iataTo"  placeholder="City or airport" [(ngModel)]="criteria.iata_to" (input)="searchAirportsTo(criteria.iata_to)">
+                                    <div class="suggestions-container">
                                     <div class="suggestions">
                                     <ul>
-                                        <!-- Display airport suggestions here -->
+                                       
                                         <li *ngFor="let suggestion of airportSuggestionsTo" (click)="selectAirport(suggestion,'iataTo')">
                                           {{ suggestion.name }} ({{ suggestion.code }})
                                         </li>
                                       </ul>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         
 
@@ -295,10 +328,10 @@ opacity: 0.9;
     </div>
 </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
+                        
+                            <!-- <div class="col-md-3">
                                 <div class="form-group">
-                                    <span class="form-label" name="travelClass" [(ngModel)]="criteria.travelClass" >Travel class</span>
+                                    <span class="form-label" name="classType" [(ngModel)]="criteria.classType" >Travel class</span>
                                     <select class="form-control">
                                         <option>Economy</option>
                                         <option>Business</option>
@@ -306,16 +339,51 @@ opacity: 0.9;
                                     </select>
                                     <span class="select-arrow"></span>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-btn">
-
-                                    <button type="submit" class="submit-btn" (click)="showFlights()">Show Flights</button>
+                            </div> -->
+                            <!-- <div class="row">
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label for="classType" class="form-label">Travel class</label>
+                                    <select class="form-control" id="classType" name="classType" [(ngModel)]="criteria.classType">
+                                      <option value="Economy">Economy</option>
+                                      <option value="Business">Business</option>
+                                      <option value="First">First</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                  </div>
                                 </div>
+                           
+                           
+                                
+                                <div class="col-md-4">
+                                  <div class="form-group text-center">
+                                    <button type="submit" class="submit-btn" (click)="showFlights()">Show Flights</button>
+                                  </div>
+                                </div>
+                                
+                              </div> -->
+                              
+                              <div class="row">
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label for="classType" class="form-label">Travel class</label>
+                                    <select class="form-control" id="classType" name="classType" [(ngModel)]="criteria.classType">
+                                      <option value="Economy">Economy</option>
+                                      <option value="Business">Business</option>
+                                      <option value="First">First</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                  </div>
+                                </div>
+                              
+                                <div class="col-md-3 offset">
+                                    <div class="form-group text-center" style="margin-top: 30px;"> 
+                                      <button type="submit" class="submit-btn" (click)="showFlights()">Show Flights</button>
+                                    </div>
+                              </div>
                             </div>
-                            
-                        </div>
                     </form>
+                
                 </div>
             </div>
         </div>
