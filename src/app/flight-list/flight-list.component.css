@@ -77,4 +77,10 @@
   font-weight: bold; /* Make the text bold */
   /* Add any other styles you want for the warning message */
 }
+.scrollable-input {
+  width: 100%;             /* Set the width to 100% of the parent container */
+  white-space: nowrap;     /* Prevent text from wrapping to the next line */
+  overflow-x: auto;        /* Add horizontal scroll when the text overflows */
+  font-weight: bold;       /* Apply the bold font style */
+}
 

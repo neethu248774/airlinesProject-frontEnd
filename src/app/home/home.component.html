@@ -2,7 +2,7 @@
  <style>
    .section {
 position: relative;
-height: 100vh;
+height: 80vh;
 }
 
 .section .section-center {
@@ -23,32 +23,32 @@ background-position: center;
 }
 
 .booking-form {
-background: rgba(0, 0, 0, 0.7);
-padding: 40px;
+background: rgba(19, 16, 19, 0.7);
+padding: 60px;
 border-radius: 6px;
 width: 100%;
 }
 
 .booking-form .form-group {
 position: relative;
-margin-bottom: 20px;
+margin-bottom: 10px;
 }
 
 .booking-form .form-control {
 background-color: #fff;
 height: 50px;
-color: #191a1e;
+color: #070809;
 border: none;
-font-size: 16px;
+font-size: 14px;
 font-weight: 400;
 -webkit-box-shadow: none;
 box-shadow: none;
-border-radius: 40px;
-padding: 0px 25px;
+border-radius: 30px;
+padding: 10px 30px;
 }
 
 .booking-form .form-control::-webkit-input-placeholder {
-color: rgba(82, 82, 84, 0.4);
+color: rgba(94, 94, 100, 0.4);
 }
 
 .booking-form .form-control:-ms-input-placeholder {
@@ -78,7 +78,7 @@ line-height: 32px;
 height: 32px;
 text-align: center;
 pointer-events: none;
-color: rgba(0, 0, 0, 0.3);
+color: rgba(10, 10, 10, 0.3);
 font-size: 14px;
 }
 
@@ -98,7 +98,7 @@ text-transform: uppercase;
 line-height: 24px;
 height: 24px;
 font-size: 12px;
-color: #fff;
+color: rgb(237, 230, 230);
 }
 
 .booking-form .form-checkbox input {
@@ -112,7 +112,7 @@ position: relative;
 padding-top: 4px;
 padding-left: 30px;
 font-weight: 400;
-color: #fff;
+color: rgb(241, 239, 239);
 }
 
 .booking-form .form-checkbox label+label {
@@ -204,6 +204,15 @@ opacity: 0.9;
   padding: 5px;
   cursor: pointer;
 }
+.booking-heading {
+    text-align: left;
+    font-size: 50px;
+    color: #fff; /* Adjust the color as needed */
+    margin-bottom: 20px; 
+    font-weight: bold;
+    
+    font-family: 'Lobster', cursive;/* Adjust the margin to control the spacing */
+}
 
 /* .suggestions li:hover {
   background-color: #f0f0f0; 
@@ -212,10 +221,11 @@ opacity: 0.9;
 
 </style>
 
-
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <div id="booking" class="section" >
     <div class="section-center">
         <div class="container">
+          <h2 class="booking-heading">Where to next ?</h2>
             <div class="row">
                 <div class="booking-form">
                     <form>
